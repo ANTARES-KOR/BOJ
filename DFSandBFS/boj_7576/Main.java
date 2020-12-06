@@ -1,3 +1,4 @@
+package boj_7576;
 
 import java.io.*;
 import java.util.Arrays;
