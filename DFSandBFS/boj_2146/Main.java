@@ -15,16 +15,8 @@ public class Main {
     static Queue<Integer> y_queue = new LinkedList<>();
     static Queue<Integer> depth_queue = new LinkedList<>();
     static Queue<Integer> color_queue = new LinkedList<>();
-    
-    static void printMap(){
-        System.out.println("-------------------------");
-        for(int i=0; i<sizeOfMap; i++){
-            for(int j=0; j<sizeOfMap; j++){
-                System.out.print(map[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
+    static int[] dx = {0, 0, 1, -1};
+    static int[] dy = {1, -1, 0, 0};
     
     static void getMapInfoAndInitialize() throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -70,8 +62,7 @@ public class Main {
         color_queue.add(color);
         
     
-        int[] dx = {0, 0, 1, -1};
-        int[] dy = {1, -1, 0, 0};
+        
         int nextX, nextY;
         
         for(int i=0; i<4; i++){
@@ -112,8 +103,6 @@ public class Main {
         // depth 저장용 맵을 하나 만들고( 시작 : -1 로 초기화 ) // isVisited 역할도 얘가 할수있을듯
         // 시작위치 저장용 맵을 하나 만들어야할듯?( 시작 : -1로 초기화)
         
-        int[] dx = {0, 0, 1, -1};
-        int[] dy = {1, -1, 0, 0};
         
         int[][] depth_map = new int[sizeOfMap][sizeOfMap];
         int[][] color_map = new int[sizeOfMap][sizeOfMap];
@@ -125,6 +114,7 @@ public class Main {
         // queue에서 pull 할때마다 현재 위치의 depth = 현재 depth, 시작한 대륙 이름(1,2..) 기록해주기.
         int curX, curY, nextX, nextY, depth, color;
         int bridgeLength = 0;
+        
         while(!x_queue.isEmpty()){
             curX = x_queue.poll();
             curY = y_queue.poll();
@@ -134,6 +124,7 @@ public class Main {
             // 만약에 현재 위치기 아미 방문한 위치라면(다리가 만났다면)
             if(depth_map[curX][curY] != -1 && color != color_map[curX][curY]){
                 bridgeLength = depth + depth_map[curX][curY] - 1;
+                break;
             }
             
             // 안만났다면
@@ -150,6 +141,8 @@ public class Main {
                     color_queue.add(color);
                 }
             }
+            
+            
             
         }
         
@@ -170,7 +163,6 @@ public class Main {
         
         getMapInfoAndInitialize();
         indicateDifferentContinents();
-        //printMap();
         
         System.out.println(getShortestBridgeLength());
     }
