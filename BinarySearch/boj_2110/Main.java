@@ -13,25 +13,22 @@ public class Main {
 		int left = 1;
 		int right = (maxPos - minPos) / (numOfWifi-1) + 1;
 		int mid;
-		int ret = 1000000001;
+		int ret = -1;
 
 		while(left <= right){
 			mid = (left + right + 1) / 2; // 점프해볼 거리
 
+			// 점프해볼 거리 구한걸 가지고 점프를 시켜봄.
 			int closestDist = jump(mid);
 
-			// 공유기가 부족한 경우 점프거리를 줄여야함
-			if(closestDist == -1){
+			// 공유기가 남는 경우 점프거리를 줄여야함. 
+			if(closestDist == -2){
 				right = mid - 1;
 			}
-			// 공유기가 남는 경우 점프거리를 늘려야함. 
-			else if(closestDist == -2){
-				left = right + 1;
-			}
-			// 공유기 개수가 딱 맞는 경우 현재의 최인접 최대거리를 저장하고 점프거리를 늘려봄.
+			// 공유기 개수가 딱 맞거나 부족한 경우 현재의 최인접 최대거리를 저장하고 점프거리를 늘려봄.(그래야 최대 최인접을 구할 수 있으니깐)
 			else {
-				ret = Math.min(ret, closestDist);
-				left = right + 1;
+				ret = Math.max(ret, closestDist);
+				left = mid + 1;
 			}
 		}
 
@@ -44,6 +41,8 @@ public class Main {
 		int lastPos = housePos[0];
 		int closestDist = 1000000001;
 		int wifiCnt = 0;
+
+		// 공유기 놓는 개수를 셈
 		for(int i=0; i<numOfHouse; i++){
 			if(housePos[i] >= pos){
 				pos = housePos[i] + dist;
@@ -55,10 +54,7 @@ public class Main {
 			}
 		}
 
-		if(wifiCnt > numOfWifi){
-			closestDist = -1;
-		}
-		else if(wifiCnt < numOfWifi){
+		if(wifiCnt < numOfWifi){ // 공유기가 남는 경우 -> 점프 거리가 너무 길다는거
 			closestDist = -2;
 		}
 		return closestDist;
