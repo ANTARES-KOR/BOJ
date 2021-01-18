@@ -1,3 +1,6 @@
 goorm.manifest
 bin
 *.class
+.classpath
+.project
+.settings/org.eclipse.*
