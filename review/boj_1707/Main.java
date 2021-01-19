@@ -35,7 +35,13 @@ public class Main {
 	static int numOfNodes;
 	
 	static Boolean isBipartite() {
-		dfs(1, 1);
+		
+		for(int i=1; i<= numOfNodes; i++) {
+			if(isVisited[i] == 0) {
+				dfs(i,1);
+			}
+		}
+		
 		for(int i=1; i<=numOfNodes; i++) {
 			for(int j : adjList.getNode(i)) {
 				if(isVisited[i] == isVisited[j]) {
