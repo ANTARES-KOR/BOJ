@@ -32,20 +32,23 @@ public class Main {
 	
 	static ListGraph adjList;
 	static int[] isVisited;
+	static int numOfNodes;
 	
 	static Boolean isBipartite() {
-		return dfs(1, 1);
-		
+		dfs(1, 1);
+		for(int i=1; i<=numOfNodes; i++) {
+			for(int j : adjList.getNode(i)) {
+				if(isVisited[i] == isVisited[j]) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
-	static Boolean dfs(int node, int teamNum) {
+	static void dfs(int node, int teamNum) {
 		if(isVisited[node] != 0) {
-			if(teamNum == isVisited[node]) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return;
 		}
 		isVisited[node] = teamNum;
 		
@@ -58,12 +61,10 @@ public class Main {
 		}
 
 		for(int i : adjList.getNode(node)) {
-			if(!dfs(i, nextNum)) {
-				return false;
-			}
+			dfs(i, nextNum);
 		}
-		return true;
 	}
+		
 	
 	public static void main(String[] args)throws IOException{
 		
@@ -71,7 +72,6 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		
 		int numOfTestCases = Integer.parseInt(st.nextToken());
-		int numOfNodes;
 		int numOfEdges;
 		int startNode, endNode;
 		
