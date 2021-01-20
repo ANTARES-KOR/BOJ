@@ -1,4 +1,4 @@
-
+package boj_10816;
 
 import java.io.*;
 import java.util.Arrays;
