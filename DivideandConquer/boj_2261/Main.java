@@ -69,7 +69,7 @@ public class Main {
 		double dc = 100000;
 		for(int i=0; i<pivotBand.length-1; i++) {
 			for(int j=i+1; j<pivotBand.length; j++) {
-				if(pivotBand[j].y - pivotBand[i].y > d) {
+				if(pivotBand[j].y - pivotBand[i].y >= d) {
 					break;
 				}
 				squareDist = pivotBand[i].getSquareDistance(pivotBand[j]);
