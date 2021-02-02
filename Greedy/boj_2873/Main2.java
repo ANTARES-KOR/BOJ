@@ -89,19 +89,18 @@ public class Main2 {
 			if(height == 2) {
 				return getRollerCoaster__Min_Part();
 			}
-			sb.append( getHeightOddRollerCoaster(oddMinX-2) );
-			sb.append("D");
-			sb.append(leftString);
-			sb.append("D");
+			if(oddMinX/2 > 0) {
+				sb.append(getHeightOddRollerCoaster((oddMinX/2) * 2));
+				sb.append("D");
+			}
 			sb.append(getRollerCoaster__Min_Part());
-			if(oddMinX == height-1) {
+			if((oddMinX/2)*2 + 2 == height) {
 				return sb.toString();
 			}
 			sb.append("D");
 			sb.append(leftString);
 			sb.append("D");
-			
-			sb.append(getHeightOddRollerCoaster(height-oddMinX-2));
+			sb.append(getHeightOddRollerCoaster(height - (oddMinX/2 + 1)*2 -1));
 			return sb.toString();
 		}
 	}
@@ -113,8 +112,8 @@ public class Main2 {
 		Arrays.fill(isVisited[1], false);
 		
 		int x=0, y=0;
-		if(oddMinX == 0) {
-			isVisited[oddMinX][oddMinY] = true;
+		if(oddMinX%2 ==  0) {
+			isVisited[0][oddMinY] = true;
 		}
 		else {
 			isVisited[1][oddMinY] = true;
