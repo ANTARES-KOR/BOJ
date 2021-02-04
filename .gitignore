@@ -5,3 +5,4 @@ bin
 .project
 .settings/org.eclipse.*
 .vscode
+*.txt
